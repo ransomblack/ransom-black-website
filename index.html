@@ -77,12 +77,12 @@ const wallNotes=document.getElementById('wall-notes');
 if(wallNotes){
  const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
  const parseFrontmatter=text=>{
-  const m=text.match(/^---\\s*\\n([\\s\\S]*?)\\n---/); if(!m) return {};
+  const m=text.match(/^---\s*\n([\s\S]*?)\n---/); if(!m) return {};
   const out={}; let key=null;
-  m[1].split(/\\r?\\n/).forEach(line=>{
+  m[1].split(/\r?\n/).forEach(line=>{
    const hit=line.match(/^([A-Za-z0-9_]+):\\s*(.*)$/);
    if(hit){key=hit[1]; out[key]=hit[2].trim().replace(/^["']|["']$/g,'');}
-   else if(key && /^\\s+/.test(line)) out[key]+=' '+line.trim();
+   else if(key && /^\s+/.test(line)) out[key]+=' '+line.trim();
   });
   return out;
  };
@@ -90,7 +90,7 @@ if(wallNotes){
   try{
    const listing=await fetch('https://api.github.com/repos/ransomblack/ransom-black-website/contents/_wall?ref=main',{headers:{Accept:'application/vnd.github+json'}});
    if(!listing.ok) throw new Error('Could not load wall');
-   const files=(await listing.json()).filter(x=>x.type==='file' && /\\.md$/i.test(x.name));
+   const files=(await listing.json()).filter(x=>x.type==='file' && /\.md$/i.test(x.name));
    const posts=(await Promise.all(files.map(async file=>{
     const r=await fetch(file.download_url); if(!r.ok) return null;
     const p=parseFrontmatter(await r.text()); p._file=file.name; return p;
