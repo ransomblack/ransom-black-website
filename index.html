@@ -80,7 +80,7 @@ if(wallNotes){
   const m=text.match(/^---\s*\n([\s\S]*?)\n---/); if(!m) return {};
   const out={}; let key=null;
   m[1].split(/\r?\n/).forEach(line=>{
-   const hit=line.match(/^([A-Za-z0-9_]+):\\s*(.*)$/);
+   const hit=line.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
    if(hit){key=hit[1]; out[key]=hit[2].trim().replace(/^["']|["']$/g,'');}
    else if(key && /^\s+/.test(line)) out[key]+=' '+line.trim();
   });
