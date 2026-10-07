@@ -1,0 +1,45 @@
+backend:
+  name: turbo-github
+  turbo_site_id: d66606d7-c8bc-419d-8468-802a200930af
+  branch: main
+
+publish_mode: simple
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "wall"
+    label: "The Wall"
+    label_singular: "Wall Post"
+    folder: "_wall"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Private editor title", name: "title", widget: "string", hint: "For your admin list only. Keep it short." }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "MMMM D, YYYY", time_format: "h:mm A", picker_utc: false }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options:
+          - "A Thought"
+          - "A Question"
+          - "Something I'm Carrying"
+          - "A Story"
+          - "Song Inspiration"
+          - "A Photo"
+          - "Something Else"
+      - { label: "Displayed name", name: "submitted_by", widget: "string", required: false, hint: "Leave blank to show Anonymous." }
+      - { label: "Post text", name: "message", widget: "text", required: false, hint: "Paste the approved thought, story, or question here." }
+      - label: "Photo"
+        name: "image"
+        widget: "image"
+        required: false
+        choose_url: false
+        allow_multiple: false
+        media_folder: "/assets/wall"
+        public_folder: "/assets/wall"
+        hint: "Optional. Only upload a photo the submitter gave permission to share."
+      - { label: "This became a song", name: "became_song", widget: "boolean", default: false }
+      - { label: "Song title / note", name: "song_note", widget: "string", required: false, hint: "Optional. Example: This one became Where My Strength Begins." }
