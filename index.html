@@ -144,4 +144,18 @@ if(wallForm){
   }
  });
 }
+</script><script>
+/* MailerLite loads its own styles after the page. Force readable opt-in text. */
+(function(){
+  const root=document.querySelector('.ransom-newsletter');
+  if(!root)return;
+  function fixConsent(){
+    root.querySelectorAll('.ml-form-checkboxRow, .ml-form-checkboxRow label, .ml-form-checkboxRow label *, .ml-form-embedPermissions, .ml-form-embedPermissionsContent, .ml-form-embedPermissionsContent *, .ml-form-embedPermissionsText, .ml-form-embedPermissionsText *').forEach(el=>{
+      if(el.matches('input,button,svg,path'))return;
+      el.style.setProperty('color','#f3dfc8','important');
+    });
+  }
+  new MutationObserver(fixConsent).observe(root,{childList:true,subtree:true});
+  fixConsent();
+})();
 </script></body></html>
