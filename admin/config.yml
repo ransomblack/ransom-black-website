@@ -41,5 +41,6 @@ collections:
         media_folder: "/assets/wall"
         public_folder: "/assets/wall"
         hint: "Optional. Only upload a photo the submitter gave permission to share."
+      - { label: "Ransom’s Response", name: "ransom_response", widget: "text", required: false, hint: "Optional public reply from Ransom. Leave blank to show no reply." }
       - { label: "This became a song", name: "became_song", widget: "boolean", default: false }
       - { label: "Song title / note", name: "song_note", widget: "string", required: false, hint: "Optional. Example: This one became Where My Strength Begins." }
