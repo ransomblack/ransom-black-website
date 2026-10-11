@@ -73,7 +73,7 @@ repeating-linear-gradient(0deg,#15110e 0,#15110e 2px,#0c0a08 3px,#0c0a08 7px);bo
 .ransom-newsletter .sender-form-field label,.ransom-newsletter .sender-form-field p{color:#f3dfc8!important}
 .ransom-newsletter .sender-form-field button[type="submit"]{background:#c27b34!important;color:#120b06!important;border-radius:2px!important;font-weight:bold!important}
 @media(max-width:600px){.ransom-newsletter{padding:24px 18px}}
-</style><!-- Sender.net universal form loader --><script>
+.ransom-wall-reply{margin-top:20px;padding:17px 18px;border-left:3px solid #c27b34;background:rgba(194,123,52,.09);text-align:left}.ransom-wall-reply strong{display:block;color:#d6a16a;font-size:11px;letter-spacing:.14em}.ransom-wall-reply p{margin:10px 0 8px;white-space:pre-wrap;overflow-wrap:anywhere}.ransom-wall-reply small{display:block;opacity:.8}</style><!-- Sender.net universal form loader --><script>
 (function(s,e,n,d,er){
 s['Sender']=er;s[er]=s[er]||function(){(s[er].q=s[er].q||[]).push(arguments)};
 s[er].l=1*new Date();s[er].on=function(event,callback){s[er].listeners=s[er].listeners||{};(s[er].listeners[event]=s[er].listeners[event]||[]).push(callback)};
@@ -117,8 +117,9 @@ if(wallNotes){
     const who=p.submitted_by||'Anonymous', type=p.type||'The Wall';
     const img=p.image?'<img src="'+esc(p.image)+'" alt="" loading="lazy" style="width:100%;height:auto;display:block;margin:0 0 14px;border-radius:2px">':'';
     const msg=p.message?'<span>'+esc(p.message)+'</span>':'';
+    const reply=p.ransom_response?'<div class="ransom-wall-reply"><strong>RANSOM RESPONDS</strong><p>'+esc(p.ransom_response)+'</p><small>— Ransom Black</small></div>':'';
     const song=String(p.became_song).toLowerCase()==='true'?'<strong style="display:block;margin-top:14px">THIS ONE BECAME A SONG.'+(p.song_note?' '+esc(p.song_note):'')+'</strong>':'';
-    return '<div class="wall-note">'+img+msg+song+'<small>'+esc(who)+' · '+esc(type)+'</small></div>';
+    return '<div class="wall-note">'+img+msg+song+reply+'<small>'+esc(who)+' · '+esc(type)+'</small></div>';
    }).join('');
   }catch(e){
    wallNotes.innerHTML='<div class="wall-note">The wall is quiet right now.<small>Check back soon.</small></div>';
