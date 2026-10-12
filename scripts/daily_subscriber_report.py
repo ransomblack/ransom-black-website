@@ -109,6 +109,19 @@ def send_report(body, subject):
         raise RuntimeError("Resend did not confirm email submission")
 
 def main():
+    # Temporary connectivity diagnostic; never sends email or prints API data.
+    for artist, cfg in GROUPS.items():
+        for endpoint in ("campaigns/", "subscribers"):
+            req = urllib.request.Request(
+                "https://api.sender.net/v2/" + endpoint,
+                headers={"Authorization": "Bearer " + os.environ[cfg["secret"]], "Accept": "application/json"},
+            )
+            try:
+                with urllib.request.urlopen(req, timeout=30) as res:
+                    print(f"{artist} {endpoint}: HTTP {res.status}", flush=True)
+            except urllib.error.HTTPError as exc:
+                print(f"{artist} {endpoint}: HTTP {exc.code}", flush=True)
+    return
     now = datetime.now(TZ)
     # Run at 8 AM America/New_York. UTC hours 12/13 cover DST transitions.
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and now.hour != 8:
