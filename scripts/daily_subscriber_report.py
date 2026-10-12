@@ -20,7 +20,28 @@ def get_json(url, token):
         with urllib.request.urlopen(req, timeout=30) as res:
             return json.load(res)
     except urllib.error.HTTPError as exc:
-        raise RuntimeError(f"Sender API returned HTTP {exc.code}. Check Sender API token permissions and plan access.") from exc
+        # Only log recognized, non-sensitive error codes/messages. Never print raw
+        # API responses, which might include subscriber data or credentials.
+        safe_reason = ""
+        try:
+            error_body = json.loads(exc.read(4096).decode("utf-8", errors="replace"))
+            if isinstance(error_body, dict):
+                candidates = [error_body.get("message"), error_body.get("error")]
+                for candidate in candidates:
+                    if isinstance(candidate, str):
+                        normalized = candidate.lower().strip()
+                        allowed = (
+                            "forbidden", "unauthorized", "invalid token",
+                            "token expired", "access denied", "permission denied",
+                            "api access disabled", "api access not available",
+                            "insufficient permissions", "not allowed",
+                        )
+                        if normalized in allowed:
+                            safe_reason = f" ({normalized})"
+                            break
+        except (ValueError, UnicodeError):
+            pass
+        raise RuntimeError(f"Sender API returned HTTP {exc.code}{safe_reason}. Check Sender API token permissions and plan access.") from exc
 
 def subscribers(token):
     url = "https://api.sender.net/v2/subscribers?limit=100"
