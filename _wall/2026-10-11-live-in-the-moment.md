@@ -7,5 +7,6 @@ message: How to live in the moment.  To enjoy life right where it's at and not
   worry about the little things.  To slow down and really appreciate everything
   we usually take for granted.
 ransom_response: That sound's like a great idea.  I'm gonna get right on that 🤘🏼
-became_song: false
+became_song: true
+song_note: The Life I've Made
 ---
