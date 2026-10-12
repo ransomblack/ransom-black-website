@@ -1,9 +1,6 @@
 name: Daily mailing list report
 on:
   workflow_dispatch:
-  schedule:
-    # 8 AM ET is 12:00 UTC during daylight time, 13:00 UTC in standard time.
-    - cron: '0 12,13 * * *'
 permissions:
   contents: read
 jobs:
