@@ -1,0 +1,22 @@
+name: Daily mailing list report
+on:
+  workflow_dispatch:
+  schedule:
+    # 8 AM ET is 12:00 UTC during daylight time, 13:00 UTC in standard time.
+    - cron: '0 12,13 * * *'
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate and send report
+        env:
+          SENDER_RANSOM_API_TOKEN: ${{ secrets.SENDER_RANSOM_API_TOKEN }}
+          SENDER_MARLOWE_API_TOKEN: ${{ secrets.SENDER_MARLOWE_API_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: python scripts/daily_subscriber_report.py
