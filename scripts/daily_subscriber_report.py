@@ -16,8 +16,11 @@ GROUPS = {
 
 def get_json(url, token):
     req = urllib.request.Request(url, headers={"Authorization": "Bearer " + token, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=30) as res:
-        return json.load(res)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as res:
+            return json.load(res)
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"Sender API returned HTTP {exc.code}. Check Sender API token permissions and plan access.") from exc
 
 def subscribers(token):
     url = "https://api.sender.net/v2/subscribers?limit=100"
@@ -76,8 +79,11 @@ def send_report(body, subject):
         "Authorization": "Bearer " + api_key,
         "Content-Type": "application/json",
     })
-    with urllib.request.urlopen(req, timeout=30) as res:
-        result = json.load(res)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as res:
+            result = json.load(res)
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"Resend API returned HTTP {exc.code}. Check sending-domain verification and Resend key permissions.") from exc
     if not result.get("id"):
         raise RuntimeError("Resend did not confirm email submission")
 
@@ -91,7 +97,10 @@ def main():
     lines = [f"Daily Mailing List Report — {now:%B %d, %Y}", f"New subscribers on {yesterday:%B %d, %Y} (Eastern Time)", ""]
     combined_new = combined_total = 0
     for artist, cfg in GROUPS.items():
-        all_items = list(subscribers(os.environ[cfg["secret"]]))
+        try:
+            all_items = list(subscribers(os.environ[cfg["secret"]]))
+        except RuntimeError as exc:
+            raise RuntimeError(f"{artist}: {exc}") from exc
         # Fail safely rather than sending misleading zeros if API tag shape differs.
         tagged = [x for x in all_items if in_group(x, cfg["ids"])]
         if all_items and not tagged:
