@@ -1,15 +1,35 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Backstage Pass | Ransom Black</title><meta name="robots" content="noindex,nofollow"><style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#080706,#23180f 70%,#0a0806);color:#f3e9dc;font:16px Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}.panel{width:min(100%,520px);border:1px solid #5b412c;background:#100e0c;padding:clamp(24px,6vw,48px);box-shadow:0 15px 65px #0009}.brand{text-transform:uppercase;letter-spacing:.28em;font-size:12px;color:#d4a26c;text-align:center}h1{text-align:center;font:normal clamp(38px,8vw,62px) Georgia,serif;margin:24px 0 8px}p{line-height:1.6;color:#c9b8a4;text-align:center}.rule{width:72px;height:2px;background:#ba7a3b;margin:24px auto}label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:26px 0 9px;color:#e7c6a2}input{width:100%;padding:15px;background:#231d18;border:1px solid #66503c;color:white;font-size:16px;border-radius:2px}button{width:100%;margin-top:14px;padding:16px;background:#bd7a37;color:#130c07;border:0;font-weight:bold;text-transform:uppercase;letter-spacing:.12em;cursor:pointer}button:disabled{opacity:.6;cursor:wait}a{color:#d4a26c}.message{margin-top:16px;text-align:center;min-height:24px;overflow-wrap:anywhere}.small{font-size:12px}.hidden{display:none}.number{font:44px Georgia,serif;text-align:center;color:#e4b47b;margin:20px 0}footer{text-align:center;margin-top:30px;font-size:12px}</style></head>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#080706,#23180f 70%,#0a0806);color:#f3e9dc;font:16px Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}.panel{width:min(100%,850px);border:1px solid #5b412c;background:#100e0c;padding:clamp(24px,6vw,48px);box-shadow:0 15px 65px #0009}.brand{text-transform:uppercase;letter-spacing:.28em;font-size:12px;color:#d4a26c;text-align:center}h1{text-align:center;font:normal clamp(38px,8vw,62px) Georgia,serif;margin:24px 0 8px}p{line-height:1.6;color:#c9b8a4;text-align:center}.rule{width:72px;height:2px;background:#ba7a3b;margin:24px auto}label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:26px 0 9px;color:#e7c6a2}input{width:100%;padding:15px;background:#231d18;border:1px solid #66503c;color:white;font-size:16px;border-radius:2px}button{width:100%;margin-top:14px;padding:16px;background:#bd7a37;color:#130c07;border:0;font-weight:bold;text-transform:uppercase;letter-spacing:.12em;cursor:pointer}button:disabled{opacity:.6;cursor:wait}a{color:#d4a26c}.message{margin-top:16px;text-align:center;min-height:24px;overflow-wrap:anywhere}.small{font-size:12px}.hidden{display:none}.number{font:44px Georgia,serif;text-align:center;color:#e4b47b;margin:20px 0}footer{text-align:center;margin-top:30px;font-size:12px} .lounge{margin-top:34px;border-top:1px solid #58402e;padding-top:24px}.lounge h2{font:normal 32px Georgia,serif;text-align:center;margin:0 0 10px}.lounge h3{font:normal 23px Georgia,serif;margin:0 0 10px}.post{background:#1d1712;border:1px solid #4d3929;padding:22px;margin:16px 0}.post p{text-align:left;margin:10px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}.meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#e4b47b}.empty{border:1px dashed #6c4a2c;padding:22px;margin-top:16px}.vip-note{color:#e4b47b}.section-intro{margin-bottom:24px} .signout{max-width:250px;margin:30px auto 0;display:block}</style></head>
 <body><main class="panel"><div class="brand">Ransom Black</div><h1>Backstage Pass</h1><p>Not everything belongs in the spotlight.</p><div class="rule"></div>
 <section id="signin"><p>Enter your email and we'll send you a secure sign-in link. Membership is free.</p><form id="login"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"><button id="send" type="submit">Send my backstage link</button></form><div class="message" id="notice" role="status" aria-live="polite"></div><p class="small">Joining Backstage Pass does not subscribe you to promotional emails.</p></section>
-<section id="member" class="hidden"><p>You're backstage.</p><div class="number" id="member-number"></div><p id="tier"></p><button id="signout" type="button">Sign out</button></section>
+<section id="member" class="hidden"><p>You're backstage.</p><div class="number" id="member-number"></div><p id="tier"></p><div class="lounge"><h2>Inside the Lounge</h2><p class="section-intro">A little closer to the music. The stories, the work, and the things that don't always make it into the spotlight.</p><div id="posts" aria-live="polite"><p>Loading backstage updates…</p></div><div id="vip-area" class="hidden"><div class="rule"></div><h2>VIP Access</h2><p class="vip-note">Invitation-only. Welcome to the inner circle.</p><div id="vip-posts"></div></div></div><button class="signout" id="signout" type="button">Sign out</button></section>
 <footer><a href="/">← Return to Ransom Black</a></footer></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script><script>
 (function(){
 'use strict';
 const supa=window.supabase.createClient('https://pvtknpwjtspqftwhpsrz.supabase.co','sb_publishable_fXwvMY1aoasNuSJ_k9VbGQ_sYCYbm1B');
 const login=document.getElementById('login'),send=document.getElementById('send'),notice=document.getElementById('notice'),signin=document.getElementById('signin'),member=document.getElementById('member');
+function renderPosts(target,items,emptyText){
+ target.replaceChildren();
+ if(!items.length){const p=document.createElement('p');p.className='empty';p.textContent=emptyText;target.append(p);return;}
+ for(const item of items){
+ const card=document.createElement('article');card.className='post';
+ const meta=document.createElement('div');meta.className='meta';meta.textContent=({'update':'Backstage update','behind_the_scenes':'Behind the scenes','early_preview':'Early preview'}[item.category]||'Backstage')+' · '+new Date(item.published_at).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+ const title=document.createElement('h3');title.textContent=item.title;
+ const body=document.createElement('p');body.textContent=item.body;
+ card.append(meta,title,body);target.append(card);
+ }
+}
+async function loadPosts(tier){
+ const publicArea=document.getElementById('posts'),vipArea=document.getElementById('vip-area'),vipPosts=document.getElementById('vip-posts');
+ vipArea.classList.toggle('hidden',tier!=='vip');
+ const {data,error}=await supa.from('backstage_posts').select('title,body,category,audience,published_at').order('published_at',{ascending:false}).limit(50);
+ if(error){publicArea.textContent='Unable to load backstage updates right now. Please try again later.';return;}
+ const posts=data||[];
+ renderPosts(publicArea,posts.filter(p=>p.audience==='member'),'The lounge is open. Exclusive updates are coming soon. Keep your pass handy.');
+ if(tier==='vip')renderPosts(vipPosts,posts.filter(p=>p.audience==='vip'),'VIP exclusives are coming soon.');
+}
 async function showSession(){
  const {data:{user},error}=await supa.auth.getUser();
  if(error||!user){signin.classList.remove('hidden');member.classList.add('hidden');return;}
@@ -17,7 +37,7 @@ async function showSession(){
  if(profileError||!data){notice.textContent='Your account is signed in, but your membership is not ready. Please contact support.';signin.classList.remove('hidden');member.classList.add('hidden');return;}
  document.getElementById('member-number').textContent='#'+String(data.member_number).padStart(4,'0');
  document.getElementById('tier').textContent=data.membership_tier==='vip'?'VIP Backstage Member':'Backstage Member';
- signin.classList.add('hidden');member.classList.remove('hidden');
+ signin.classList.add('hidden');member.classList.remove('hidden');await loadPosts(data.membership_tier);
 }
 login.addEventListener('submit',async e=>{
  e.preventDefault();send.disabled=true;notice.textContent='Sending your link…';
