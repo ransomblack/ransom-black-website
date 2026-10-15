@@ -150,4 +150,30 @@ if(wallForm){
   }
  });
 }
+</script><script>
+(function(){
+  const section=document.querySelector('#music .section');
+  if(!section)return;
+  const heading=section.querySelector('.records-heading');
+  const escapeHtml=(value)=>String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeUrl=(value)=>{try{const u=new URL(value,location.href);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch{return '';}};
+  const art=(value)=>{const v=String(value||'');return v && !v.startsWith('//') && !/^javascript:/i.test(v)?escapeHtml(v):'';};
+  const dateLabel=(item)=>{if(!item.release_date)return '';const d=new Date(item.release_date+'T12:00:00');return Number.isNaN(d.getTime())?'':d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});};
+  const links=(item)=>[['Spotify',item.spotify],['Apple Music',item.apple],['Amazon Music',item.amazon],['YouTube',item.youtube]].filter(([,url])=>safeUrl(url)).map(([name,url])=>'<a href="'+escapeHtml(safeUrl(url))+'" target="_blank" rel="noopener noreferrer">'+name+' ↗</a>').join('');
+  const render=(item,featured)=>{
+    const title=escapeHtml(item.title),cover=art(item.cover),desc=escapeHtml(item.description),isOut=item.status==='Published',date=dateLabel(item);
+    const label=isOut?'OUT NOW':('Coming '+date);
+    if(featured)return '<article class="record-feature"><div class="record-art-wrap"><img class="record-art" src="'+cover+'" alt="'+title+' artwork"><span class="record-stamp">'+escapeHtml(label)+'</span></div><div class="record-copy"><div class="date">'+escapeHtml(item.type||'Release')+(date?' · '+escapeHtml(date):'')+'</div><h3>'+title+'</h3><p class="record-line">'+desc+'</p><div class="record-rule"></div><div class="platforms record-links">'+links(item)+'</div>'+(safeUrl(item.preview)?'<audio controls preload="none" src="'+escapeHtml(safeUrl(item.preview))+'" style="max-width:100%;margin-top:16px"></audio>':'')+'</div></article>';
+    return '<article class="record-next"><img src="'+cover+'" alt="'+title+' artwork"><div><div class="date">'+escapeHtml(label)+'</div><h3>'+title+'</h3><p>'+desc+'</p>'+(isOut?'<div class="platforms record-links">'+links(item)+'</div>':'<span class="coming">'+escapeHtml(label)+'</span>')+(safeUrl(item.preview)?'<audio controls preload="none" src="'+escapeHtml(safeUrl(item.preview))+'" style="max-width:100%;margin-top:12px"></audio>':'')+'</div></article>';
+  };
+  fetch('music/releases.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Catalog unavailable');return r.json();}).then(data=>{
+    const today=new Date();today.setHours(0,0,0,0);
+    const items=(Array.isArray(data.releases)?data.releases:[]).filter(x=>x&&x.title&&x.status!=='Draft'&&(!x.release_date||x.release_date<=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0')||x.status==='Coming Soon'));
+    if(!items.length)return;
+    const published=items.filter(x=>x.status==='Published');
+    const feature=published.find(x=>x.featured)||published[0]||items.find(x=>x.featured)||items[0];
+    const others=items.filter(x=>x!==feature);
+    section.innerHTML=heading.outerHTML+render(feature,true)+(others.length?'<div class="record-archive-label"><span>More from Ransom</span></div>'+others.map(x=>render(x,false)).join(''):'');
+  }).catch(err=>console.warn('Using original music display:',err));
+})();
 </script></body></html>
