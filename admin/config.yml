@@ -44,3 +44,29 @@ collections:
       - { label: "Ransom’s Response", name: "ransom_response", widget: "text", required: false, hint: "Optional public reply from Ransom. Leave blank to show no reply." }
       - { label: "This became a song", name: "became_song", widget: "boolean", default: false }
       - { label: "Song title / note", name: "song_note", widget: "string", required: false, hint: "Optional. Example: This one became Where My Strength Begins." }
+
+  - name: "music"
+    label: "Music Manager"
+    files:
+      - name: "releases"
+        label: "Singles & Albums"
+        file: "music/releases.json"
+        format: "json"
+        fields:
+          - label: "Releases"
+            name: "releases"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.status}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Release type", name: "type", widget: "select", options: ["Single", "Album", "EP"], default: "Single" }
+              - { label: "Artwork", name: "cover", widget: "image", choose_url: true }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Release date", name: "release_date", widget: "datetime", format: "YYYY-MM-DD", date_format: "MMMM D, YYYY", time_format: false }
+              - { label: "Visibility", name: "status", widget: "select", options: ["Published", "Coming Soon", "Draft"], default: "Draft" }
+              - { label: "Featured release", name: "featured", widget: "boolean", default: false }
+              - { label: "Spotify URL", name: "spotify", widget: "string", required: false }
+              - { label: "Apple Music URL", name: "apple", widget: "string", required: false }
+              - { label: "Amazon Music URL", name: "amazon", widget: "string", required: false }
+              - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
+              - { label: "Audio preview URL", name: "preview", widget: "string", required: false }
