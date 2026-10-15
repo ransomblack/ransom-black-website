@@ -1,0 +1,25 @@
+{
+  "releases": [
+    {
+      "title": "Ransom",
+      "type": "Single",
+      "cover": "ransom-cover.png",
+      "description": "The song that introduced Ransom Black — rough-edged, restless and unapologetically his own.",
+      "release_date": "2026-09-29",
+      "status": "Published",
+      "featured": true,
+      "spotify": "https://open.spotify.com/track/32pnugtk69Sv9byH0q6fIj",
+      "apple": "https://music.apple.com/us/song/ransom/6813707764",
+      "amazon": "https://music.amazon.com/albums/B0HK9SGXQD"
+    },
+    {
+      "title": "More Than I Did Then",
+      "type": "Single",
+      "cover": "more-than-cover.png",
+      "description": "A love song about discovering that the best years weren't behind you — and realizing you still haven't loved each other as much as you're going to yet.",
+      "release_date": "2026-10-30",
+      "status": "Coming Soon",
+      "featured": false
+    }
+  ]
+}
