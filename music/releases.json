@@ -1,6 +1,18 @@
 {
   "releases": [
     {
+      "amazon": "https://music.amazon.com/albums/B0HMBT5L8D?ref=dm_sh_mrYLL2I6oR5StIIIatE5ZBKTI",
+      "release_date": "2026-10-23",
+      "featured": true,
+      "status": "Published",
+      "cover": "/assets/uploads/turn-it-up-album-cover.png",
+      "title": "Turn It Up",
+      "spotify": "https://open.spotify.com/artist/3NYpsxuqRruiWqWrCfL2pl?si=995Qo13ER2OogzTMqi3NrQ",
+      "type": "Album",
+      "apple": "https://music.apple.com/us/album/turn-it-up/6820692615",
+      "description": "The debut album from Ransom Black. Dark country, Southern rock, and songs about love, loyalty, loss, and finding the strength to keep going. Turn it up. Feel every word."
+    },
+    {
       "amazon": "https://music.amazon.com/albums/B0HK9SGXQD",
       "release_date": "2026-09-29",
       "featured": false,
@@ -11,15 +23,6 @@
       "type": "Single",
       "apple": "https://music.apple.com/us/song/ransom/6813707764",
       "description": "The song that introduced Ransom Black — rough-edged, restless and unapologetically his own."
-    },
-    {
-      "type": "Album",
-      "status": "Coming Soon",
-      "featured": true,
-      "title": "Turn It Up",
-      "description": "The debut album from Ransom Black. Dark country, Southern rock, and songs about love, loyalty, loss, and finding the strength to keep going. Turn it up. Feel every word.",
-      "release_date": "2026-10-23",
-      "cover": "/assets/uploads/turn-it-up-album-cover.png"
     }
   ]
 }
