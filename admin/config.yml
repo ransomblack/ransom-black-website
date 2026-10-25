@@ -70,3 +70,16 @@ collections:
               - { label: "Amazon Music URL", name: "amazon", widget: "string", required: false }
               - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
               - { label: "Audio preview URL", name: "preview", widget: "string", required: false }
+
+  - name: "featured_video"
+    label: "Featured Video"
+    files:
+      - name: "homepage_video"
+        label: "Homepage Featured Video"
+        file: "music/featured-video.json"
+        format: "json"
+        fields:
+          - { label: "Video title", name: "title", widget: "string", hint: "Song or video title shown on the homepage." }
+          - { label: "YouTube video URL", name: "youtube_url", widget: "string", hint: "Paste the full YouTube video link, not the channel URL. A video thumbnail is generated automatically." }
+          - { label: "Description", name: "description", widget: "text", required: false }
+          - { label: "Custom thumbnail (optional)", name: "thumbnail", widget: "image", required: false, choose_url: true, hint: "Leave empty to use the YouTube video's thumbnail automatically. Clear the old Ransom image when changing videos." }
