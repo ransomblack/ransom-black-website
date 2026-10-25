@@ -181,7 +181,7 @@ if(wallForm){
 (()=>{
  const section=document.querySelector('.video-section');if(!section)return;
  const title=section.querySelector('.video-copy h3'),description=section.querySelector('.video-copy p'),thumb=section.querySelector('.video-thumb'),image=thumb?.querySelector('img'),watch=section.querySelector('.video-copy .btn');
- function videoId(input){try{const u=new URL(input);const host=u.hostname.toLowerCase().replace(/^www\\./,'');if(host==='youtu.be')return u.pathname.split('/')[1]||'';if(host==='youtube.com'||host==='m.youtube.com'||host==='music.youtube.com'){if(u.pathname==='/watch')return u.searchParams.get('v')||'';const m=u.pathname.match(/^\\/(?:shorts|live|embed)\\/([^/]+)/);return m?m[1]:''}}catch(e){}return ''}
+ function videoId(input){try{const u=new URL(input);const host=u.hostname.toLowerCase().replace(/^www\./,'');if(host==='youtu.be')return u.pathname.split('/')[1]||'';if(host==='youtube.com'||host==='m.youtube.com'||host==='music.youtube.com'){if(u.pathname==='/watch')return u.searchParams.get('v')||'';const m=u.pathname.match(/^\/(?:shorts|live|embed)\/([^/]+)/);return m?m[1]:''}}catch(e){}return ''}
  fetch('music/featured-video.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Featured video unavailable');return r.json()}).then(data=>{
   if(!data||!data.title||!data.youtube_url)return;
   const url=new URL(data.youtube_url);if(url.protocol!=='https:'||!['youtube.com','www.youtube.com','m.youtube.com','music.youtube.com','youtu.be'].includes(url.hostname))return;
