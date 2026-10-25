@@ -23,6 +23,19 @@
       "type": "Single",
       "apple": "https://music.apple.com/us/song/ransom/6813707764",
       "description": "The song that introduced Ransom Black — rough-edged, restless and unapologetically his own."
+    },
+    {
+      "youtube": "https://youtu.be/YL-1c5161KQ?si=Sg9sXUA3zMIaueSR",
+      "amazon": "https://amazon.com/music/player/albums/B0HP8D3YV9?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_po73Xgattij7hNYDHm4LluHcp",
+      "release_date": "2026-10-25",
+      "featured": false,
+      "status": "Published",
+      "cover": "/assets/uploads/song-inspiration-by-whiskey-and-strings.png",
+      "title": "The Life I've Made",
+      "spotify": "https://open.spotify.com/album/1vSlzt3vv9z4XLZc83fCLm?si=z9au6QoVTWasGYaTPolQTw",
+      "type": "Single",
+      "apple": "https://music.apple.com/us/song/the-life-ive-made/6826890671",
+      "description": "Inspired by a visitor's post on The Wall, \"The Life I've Made\" is about looking back at the road you've traveled, the choices you've made, and the life you've built along the way. It isn't about having a perfect life. It's about appreciating the one you've made.\n\nSometimes a few words from a stranger can become something much bigger.\n\nHave something on your mind? Visit The Wall. Your story might inspire the next song."
     }
   ]
 }
