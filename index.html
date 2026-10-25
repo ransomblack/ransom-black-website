@@ -176,4 +176,19 @@ if(wallForm){
     section.innerHTML=heading.outerHTML+render(feature,true)+(others.length?'<div class="record-archive-label"><span>More from Ransom</span></div>'+others.map(x=>render(x,false)).join(''):'');
   }).catch(err=>console.warn('Using original music display:',err));
 })();
-</script></body></html>
+</script>
+<script>
+(()=>{
+ const section=document.querySelector('.video-section');if(!section)return;
+ const title=section.querySelector('.video-copy h3'),description=section.querySelector('.video-copy p'),thumb=section.querySelector('.video-thumb'),image=thumb?.querySelector('img'),watch=section.querySelector('.video-copy .btn');
+ function videoId(input){try{const u=new URL(input);const host=u.hostname.toLowerCase().replace(/^www\\./,'');if(host==='youtu.be')return u.pathname.split('/')[1]||'';if(host==='youtube.com'||host==='m.youtube.com'||host==='music.youtube.com'){if(u.pathname==='/watch')return u.searchParams.get('v')||'';const m=u.pathname.match(/^\\/(?:shorts|live|embed)\\/([^/]+)/);return m?m[1]:''}}catch(e){}return ''}
+ fetch('music/featured-video.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Featured video unavailable');return r.json()}).then(data=>{
+  if(!data||!data.title||!data.youtube_url)return;
+  const url=new URL(data.youtube_url);if(url.protocol!=='https:'||!['youtube.com','www.youtube.com','m.youtube.com','music.youtube.com','youtu.be'].includes(url.hostname))return;
+  const id=videoId(data.youtube_url);if(!id&&!url.pathname.startsWith('/@'))return;
+  title.textContent=data.title;description.textContent=data.description||'';thumb.href=url.href;watch.href=url.href;thumb.setAttribute('aria-label','Watch '+data.title+' on YouTube');
+  image.alt=data.title+' video thumbnail';image.src=data.thumbnail|| (id?'https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/hqdefault.jpg':'video-ransom.png');
+ }).catch(e=>console.warn('Using original featured video:',e));
+})();
+</script>
+</body></html>
