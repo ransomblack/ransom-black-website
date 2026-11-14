@@ -83,3 +83,25 @@ collections:
           - { label: "YouTube video URL", name: "youtube_url", widget: "string", hint: "Paste the full YouTube video link, not the channel URL. A video thumbnail is generated automatically." }
           - { label: "Description", name: "description", widget: "text", required: false }
           - { label: "Custom thumbnail (optional)", name: "thumbnail", widget: "image", required: false, choose_url: true, hint: "Leave empty to use the YouTube video's thumbnail automatically. Clear the old Ransom image when changing videos." }
+
+  - name: "featured_track"
+    label: "Featured Track of the Month"
+    files:
+      - name: "monthly_track"
+        label: "Current Featured Track"
+        file: "music/featured-track.json"
+        format: "json"
+        fields:
+          - { label: "Month label", name: "month", widget: "string", hint: "Example: November 2026. Change whenever you're ready; this is a manual feature." }
+          - { label: "Section heading", name: "eyebrow", widget: "string", default: "Featured Track of the Month" }
+          - { label: "Song title", name: "title", widget: "string" }
+          - { label: "Short homepage tagline", name: "tagline", widget: "string" }
+          - { label: "Short description", name: "description", widget: "text" }
+          - { label: "Behind the song story", name: "story", widget: "text" }
+          - { label: "Artwork", name: "artwork", widget: "image", choose_url: true }
+          - { label: "Direct audio URL (optional)", name: "audio_url", widget: "string", required: false, hint: "Use a publicly accessible HTTPS MP3 URL for a native audio player. Otherwise a Spotify track URL can display a Spotify player." }
+          - { label: "Spotify track URL", name: "spotify_url", widget: "string", required: false }
+          - { label: "Apple Music URL", name: "apple_url", widget: "string", required: false }
+          - { label: "Amazon Music URL", name: "amazon_url", widget: "string", required: false }
+          - { label: "YouTube song URL", name: "youtube_url", widget: "string", required: false }
+          - { label: "YouTube music video URL", name: "video_url", widget: "string", required: false }
